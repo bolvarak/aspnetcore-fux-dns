@@ -82,10 +82,11 @@ namespace Fux.Dns
         /// </summary>
         /// <param name="source"></param>
         /// <param name="favorCustomTopLevelDomains"></param>
+        /// <param name="isCustom"></param>
         /// <param name="isValid"></param>
         /// <param name="topLevelDomain"></param>
         /// <param name="domain"></param>
-        private static void determineTopLevelDomain(string source, bool favorCustomTopLevelDomains, out bool isValid, out string topLevelDomain, out string domain)
+        private static void determineTopLevelDomain(string source, bool favorCustomTopLevelDomains, out bool isValid, out bool isCustom, out string topLevelDomain, out string domain)
         {
             // Run our search agains the custom top-level domains
             searchCustomTopLevelDomains(source, out bool customIsValid, out string customTopLevelDomain,
@@ -96,6 +97,8 @@ namespace Fux.Dns
             // Check our flags to see if we need to favor the custom TLDs
             if (customIsValid && publicIsValid && favorCustomTopLevelDomains)
             {
+                // Reset the custom flag
+                isCustom = true;
                 // Reset the valid flag
                 isValid = customIsValid;
                 // Reset the top-level domain
@@ -105,6 +108,8 @@ namespace Fux.Dns
             }
             else if (customIsValid && publicIsValid)
             {
+                // Reset the custom flag
+                isCustom = false;
                 // Reset the valid flag
                 isValid = publicIsValid;
                 // Reset the top-level domain
@@ -114,6 +119,8 @@ namespace Fux.Dns
             }
             else if (publicIsValid)
             {
+                // Reset the custom flag
+                isCustom = false;
                 // Reset the valid flag
                 isValid = publicIsValid;
                 // Reset the top-level domain
@@ -123,6 +130,8 @@ namespace Fux.Dns
             }
             else
             {
+                // Reset the custom flag
+                isCustom = true;
                 // Reset the valid flag
                 isValid = customIsValid;
                 // Reset the top-level domain
@@ -153,13 +162,15 @@ namespace Fux.Dns
             else response.Source = source;
 
             // Determine the top level domain
-            determineTopLevelDomain(response.Source, favorCustomTopLevelDomains, out bool isValid, out string tld,
-                out string domain);
+            determineTopLevelDomain(response.Source, favorCustomTopLevelDomains, out bool isValid, out bool isCustom,
+                out string tld, out string domain);
             // Set the validation flag into the response
             response.IsValid = isValid;
             // Check the valid response
             if (response.IsValid)
             {
+                // Set the custom flag into the response
+                response.IsCustom = isCustom;
                 // Set the top level domain into the response
                 response.TopLevelDomain = tld;
                 // Set the domain into the response
@@ -308,7 +319,7 @@ namespace Fux.Dns
         /// <param name="source"></param>
         /// <param name="favorCustomTopLevelDomains"></param>
         /// <returns></returns>
-        public async Task<Model.Hostname> ParseAsync(string source, bool favorCustomTopLevelDomains = false)
+        public static async Task<Model.Hostname> ParseAsync(string source, bool favorCustomTopLevelDomains = false)
         {
             // Ensure the database is in place
             await databaseAsync();
