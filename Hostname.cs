@@ -326,5 +326,20 @@ namespace Fux.Dns
             // We're done, parse the hostname and return
             return parseInternal(source, favorCustomTopLevelDomains);
         }
+
+        /// <summary>
+        /// This method adds a custom top-level domain to the database
+        /// </summary>
+        /// <param name="tld"></param>
+        public static void WithCustomTld(string tld) =>
+            WithCustomTopLevelDomain(tld);
+
+        /// <summary>
+        /// This method adds a custom top-level domain to the database
+        /// </summary>
+        /// <param name="tld"></param>
+        public static void WithCustomTopLevelDomain(string tld) =>
+            _publicSuffixDatabase.WithCustomTopLevelDomain(tld);
+
     }
 }
