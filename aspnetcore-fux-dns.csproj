@@ -1,21 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Authors>bolvarak</Authors>
-    <Company/>
-    <Description>&#xD;
-      This client library is just a collection of potentially useful things&#xD;
-      relating to DNS&#xD;
+    <Company />
+    <Description>
+      This client library is just a collection of potentially useful things
+      relating to DNS
     </Description>
+    <DocumentationFile>https://raw.githubusercontent.com/bolvarak/aspnetcore-fux-examples/main/Readme.md</DocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Fux.Dns</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>Abstract;Library;Data;Database;Mongo;MongoDB</PackageTags>
+    <PackageTags>Abstract;Library;Dns;Hostname;PublicSuffix</PackageTags>
     <Product>Fux.Dns .Net Library</Product>
     <RepositoryUrl>https://github.com/bolvarak/aspnetcore-fux-dns-mongo.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <RootNamespace>Fux.Dns</RootNamespace>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>1.0.10</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
@@ -33,7 +34,7 @@
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0"/>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>
